@@ -119,19 +119,19 @@ module.exports = function (grunt) {
 					}]
 				},
 			//куски кода
-			parts: {
-				options: {
-					pretty: true
-				},
-				files: [{
-					expand: true,
-					cwd: ['app/jade/blocks/', 'app/jade/layouts/'],
-					src: ['*.jade'],
-					dest: 'app/html/parts',
-					ext: '.html',
-					extDot: 'last'
-				}]
-			}
+//			parts: {
+//				options: {
+//					pretty: true
+//				},
+//				files: [{
+//					expand: true,
+//					cwd: 'app/jade/blocks/',
+//					src: ['*.jade'],
+//					dest: 'app/html/parts',
+//					ext: '.html',
+//					extDot: 'last'
+//				}]
+//			}
 		},
 		//замена пробелов табами в html-файлах
 		prettify: {
