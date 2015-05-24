@@ -7,7 +7,7 @@ module.exports = function (grunt) {
 		less: {
 			style: {
 				files: {
-					'css/style.css' : ['less/common.less']
+					'app/css/style.css' : ['app/less/common.less']
 				}
 			}
 		},
@@ -17,14 +17,14 @@ module.exports = function (grunt) {
 				browsers: ['last 2 versions', 'ie 8']
 			},
 			style: {
-				src: 'css/style.css'
+				src: 'app/css/style.css'
 			}
 		},
 		//комбинирует медиа-выражения
 		cmq: {
 			style: {
 				files: {
-					'css/style.css' : ['css/style.css']
+					'app/css/style.css' : ['app/css/style.css']
 				}
 			}
 		},
@@ -44,7 +44,7 @@ module.exports = function (grunt) {
 		csscomb: {
 			style: {
 				files: {
-					'css/style.css' : ['css/style.css']
+					'app/css/style.css' : ['app/css/style.css']
 				}
 			}
 		},
@@ -56,7 +56,7 @@ module.exports = function (grunt) {
 				},
 				files: [{
 					expand: true,
-					src: ['images/**/*.{png, jpg, gif, svg}']
+					src: ['app/images/**/*.{png, jpg, gif, svg}']
 				}]
 			}
 		},
@@ -85,9 +85,9 @@ module.exports = function (grunt) {
 				files: [{
 					expand: true,
 					src: [
-						'css/**',
-						'images/**',
-						'scripts/**'
+						'app/css/**',
+						'app/images/**',
+						'app/scripts/**'
 					],
 					dest: 'build'
 				}]
@@ -137,7 +137,7 @@ module.exports = function (grunt) {
 		watch: {
 			//компилятор less и автопрефиксер
 			styles: {
-				files: ['less/**/*.less'],
+				files: ['app/less/**/*.less'],
 				tasks: ['less', 'autoprefixer'],
 				options: {
 					spawn: false
