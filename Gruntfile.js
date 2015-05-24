@@ -3,21 +3,24 @@ module.exports = function (grunt) {
 	require('load-grunt-tasks')(grunt);
 	
 	grunt.initConfig({
+		//компиляция less
 		less: {
 			style: {
 				files: {
-					'css/style.css' : ['less/style.less']
+					'css/style.css' : ['less/common.less']
 				}
 			}
 		},
+		//автопрефиксер
 		autoprefixer: {
 			options: {
-				browsers: ['last 2 versions', 'ie 10']
+				browsers: ['last 2 versions', 'ie 8']
 			},
 			style: {
 				src: 'css/style.css'
 			}
 		},
+		//комбинирует медиа-выражения
 		cmq: {
 			style: {
 				files: {
@@ -25,6 +28,7 @@ module.exports = function (grunt) {
 				}
 			}
 		},
+		//минимизирует стилевой файл
 		cssmin: {
 			style: {
 				options: {
@@ -36,6 +40,7 @@ module.exports = function (grunt) {
 				}
 			}
 		},
+		//делает стилевой файл красивым
 		csscomb: {
 			style: {
 				files: {
@@ -43,6 +48,7 @@ module.exports = function (grunt) {
 				}
 			}
 		},
+		//минимизирует изображения
 		imagemin: {
 			build: {
 				options: {
@@ -50,10 +56,11 @@ module.exports = function (grunt) {
 				},
 				files: [{
 					expand: true,
-					src: ['img/**/*.{png, jpg, gif, svg}']
+					src: ['images/**/*.{png, jpg, gif, svg}']
 				}]
 			}
 		},
+		//минимизирует html-файлы
 		htmlmin: {
 			options: {
 				removeComments: true,
@@ -68,47 +75,133 @@ module.exports = function (grunt) {
 				}
 			}
 		},
+		//очистка папки проекта
 		clean: {
 			build: ['build']
 		},
+		//копирование файлов в папку проекта
 		copy: {
 			build: {
 				files: [{
 					expand: true,
 					src: [
 						'css/**',
-						'img/**',
-						'js/**',
-						'*.html'
+						'images/**',
+						'scripts/**'
 					],
+					dest: 'build'
+				}]
+			},
+			//копирование только нужных html-файлов
+			build_html: {
+				files: [{
+					expand: true,
+					cwd: 'html/',
+					src:['*.html'],
 					dest: 'build'
 				}]
 			}
 		},
+		//работа с jade-файлами
+		jade: {
+			//основные файлы
+			temp: {
+				options: {
+					pretty: true
+				},
+					files: [{
+						expand: true,
+						cwd: 'app/jade/pages/',
+						src: ['*.jade'],
+						dest: 'app/html/',
+						ext: '.html',
+						extDot: 'last'
+					}]
+				},
+			//куски кода
+			parts: {
+				options: {
+					pretty: true
+				},
+				files: [{
+					expand: true,
+					cwd: ['app/jade/blocks/', 'app/jade/layouts/'],
+					src: ['*.jade'],
+					dest: 'app/html/parts',
+					ext: '.html',
+					extDot: 'last'
+				}]
+			}
+		},
+		//замена пробелов табами в html-файлах
+		prettify: {
+			options: {
+				indent: 1,
+				indent_char: '	'
+			},
+			html: {
+				expand: true,
+				cwd: 'app/html',
+				ext: '.html',
+				src: '**/*.html',
+				dest: 'app/html'
+			}
+		},
+		//запуск автоматических функций
 		watch: {
+			//компилятор less и автопрефиксер
 			styles: {
 				files: ['less/**/*.less'],
 				tasks: ['less', 'autoprefixer'],
 				options: {
 					spawn: false
 				}
+			},
+			//компилятор jade
+			jades: {
+				files: ['app/jade/**/*.jade'],
+				tasks: ['jade'],
+				options: {
+					spawn: false
+				}
 			}
 		},
+		//минимизатор JS
 		uglify: {
 			build: {
 				src: 'build/js/js.js',
 				dest: 'build/js/js.min.js'
 			}
+		},
+		//замена относительных адресов
+		replace: {
+			build: {
+				options: {
+					patterns: [{
+						match: /src="..\//g,
+						replacement: 'src="'
+					}, {
+						match: /href="..\//g,
+						replacement: 'href="'
+					}]
+				},
+				files: [{
+					expand: true,
+					flattern: true,
+					src: ['build/*.html']
+				}]
+			}
 		}
 	});
 	
 	grunt.registerTask('default', [
-		'imagemin',
+//		'imagemin',
 		'clean',
 		'copy',
-		'cssmin',
-		'htmlmin',
-		'uglify'
+//		'cssmin',
+//		'htmlmin',
+//		'uglify',
+		'replace'
 	]);
 	
 	grunt.registerTask('debug', [
