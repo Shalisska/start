@@ -109,29 +109,15 @@ module.exports = function (grunt) {
 				options: {
 					pretty: true
 				},
-					files: [{
-						expand: true,
-						cwd: 'app/jade/pages/',
-						src: ['*.jade'],
-						dest: 'app/html/',
-						ext: '.html',
-						extDot: 'last'
-					}]
-				},
-			//куски кода
-//			parts: {
-//				options: {
-//					pretty: true
-//				},
-//				files: [{
-//					expand: true,
-//					cwd: 'app/jade/blocks/',
-//					src: ['*.jade'],
-//					dest: 'app/html/parts',
-//					ext: '.html',
-//					extDot: 'last'
-//				}]
-//			}
+				files: [{
+					expand: true,
+					cwd: 'app/jade/pages/',
+					src: ['*.jade'],
+					dest: 'app/html/',
+					ext: '.html',
+					extDot: 'last'
+				}]
+			}
 		},
 		//замена пробелов табами в html-файлах
 		prettify: {
