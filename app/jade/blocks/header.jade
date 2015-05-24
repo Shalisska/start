@@ -1,0 +1,18 @@
+-var breadCrumbs = ["Главная","Логотипы","Новость"]
+
+
+header.header
+	.head
+		//хлебные крошки
+		nav
+			ul.head__breadcrumb
+				each item in breadCrumbs
+					li: a(href="#") #{item}
+
+		+nav ([{
+			name: 'Главная',
+			href: '/'
+		}, {
+			name: '111',
+			href: '/11'
+		}])

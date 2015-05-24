@@ -1,0 +1,9 @@
+mixin nav(items)
+	ul.nav
+		each item, i in items
+			if i === pageID
+				li.nav-item.nav-item--active
+					span.nav-item__name.nav-item__name--active=item.name
+			else
+				li.nav-item
+					a.nav-item__name(href=item.href)=item.name
